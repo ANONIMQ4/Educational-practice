@@ -1,5 +1,7 @@
 from random import choices
 
+# не работает удаление и изменение весов
+# добавляется и получается элемент за log(n)   (вроде бы)
 
 class Node:
     def __init__(self):
@@ -54,4 +56,3 @@ class Tree:
             i = new_i
         return self.nodes[i].x
 
-test_tree = Tree()
