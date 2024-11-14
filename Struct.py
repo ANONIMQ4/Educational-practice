@@ -1,8 +1,9 @@
-from random import choices
-
 # не работает удаление и изменение весов
 # добавляется в среднем за O(log(n)) в худшем случае за O(n)
-# получается элемент за log(n)
+# получается элемент за O(log(n))
+
+from random import choices
+
 
 class Node:
     def __init__(self):
@@ -38,7 +39,7 @@ class Tree:
             self.nodes[i].weight += weight
             self.nodes[i].x = x
             return
-        if 4 * i + 2 > len(self.nodes):
+        if 2 * i + 1 > len(self.nodes):
             self.nodes += [Node() for i in range(len(self.nodes))]
         self.nodes[i].weight += weight
         if self.nodes[i].counter == 1:
