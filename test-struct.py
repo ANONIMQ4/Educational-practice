@@ -13,19 +13,27 @@ def generate_data(n,min_weight,max_weight):
 
 def test_with_generate_date(test_struct,n,m,min_weigh,max_weight):
     tracemalloc.start()
+    g_data = generate_data(n,min_weigh,max_weight)
     start_time = time.time()
-    for data in generate_data(n,min_weigh,max_weight):
+    for data in g_data:
         test_struct.add(*data)
     end_time = time.time()
     snapshot = tracemalloc.take_snapshot()
     print(snapshot.statistics('lineno')[0])
     tracemalloc.stop()
     print(f"Добавление {n} элементов:", end_time-start_time)
+
     start_time = time.time()
     for i in range(m):
         test_struct.get()
     end_time = time.time()
     print(f"Получение {m} элементов из дерева с {n} элементами:", end_time - start_time)
+
+    start_time = time.time()
+    for i in range(m):
+        test_struct.delete(i+1)
+    end_time = time.time()
+    print(f"Удаление {m} элементов из дерева с {n} элементами:", end_time - start_time)
 
 def static_test(weights,struct,n):
     results = [0] * len(weights)
@@ -87,5 +95,7 @@ def test_with_static_date():
 
     
 print("Struct_2")
-test_with_generate_date(test_tree_2,100000,100000,0.001,10)
+test_with_generate_date(test_tree_2,10000,10000,0.001,10)
+test_with_generate_date(test_tree_2,100000,1000000,0.001,10)
+test_with_generate_date(test_tree_2,1000000,1000000,0.001,10)
 test_with_static_date()
